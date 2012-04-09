@@ -2,6 +2,16 @@ autocmd!
 
 set nocompatible
 
+scriptencoding utf-8
+
+if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        let s:ismac = 1
+    else
+        let s:ismac = 0
+    endif
+endif
 let s:iswin = has('win32') || has('win64')
 let $DOTVIM = expand('~/.vim')
 
@@ -74,6 +84,12 @@ set wrapscan
 "}}}
 
 " Interface:"{{{
+augroup highlightIdegraphicSpace
+    autocmd!
+    autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
+
 set background=dark
 if has('syntax')
     syntax enable
@@ -124,6 +140,12 @@ inoremap <C-l> <Right>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <C-d> <Del>
+
+" Clipboard
+if s:ismac
+    vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
+    nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
+endif
 
 " Commet out
 vnoremap co/ :s/^/\/\//<CR>:nohlsearch<CR>

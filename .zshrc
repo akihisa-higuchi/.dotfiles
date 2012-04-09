@@ -98,7 +98,9 @@ alias ll='ls -l'
 alias lla='ls -al'
 
 # cd
-alias xtrmjp='cd /Users/akihisa/Documents/Work/Solutions/Web/xtrm_jp/'
+alias briefcase='cd /Users/akihisa/Documents/Magic\ Briefcase/'
+alias web='cd /Users/akihisa/Documents/Work/Web/'
+alias xtrmjp='cd /Users/akihisa/Documents/Work/Web/xtrm_jp/'
 
 #}}}
 
