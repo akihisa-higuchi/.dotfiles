@@ -2,8 +2,6 @@ autocmd!
 
 set nocompatible
 
-scriptencoding utf-8
-
 let s:is_win = has('win32') || has('win64')
 let s:is_mac = !s:is_win && (has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin')
 
@@ -26,6 +24,7 @@ NeoBundle 'git://github.com/mattn/zencoding-vim.git'
 NeoBundle 'git://github.com/othree/html5.vim.git'
 "}}}
 
+scriptencoding utf-8
 filetype plugin indent on
 
 " Encoding:"{{{
