@@ -4,15 +4,9 @@ set nocompatible
 
 scriptencoding utf-8
 
-if has("unix")
-    let s:uname = system("uname")
-    if s:uname == "Darwin\n"
-        let s:ismac = 1
-    else
-        let s:ismac = 0
-    endif
-endif
-let s:iswin = has('win32') || has('win64')
+let s:is_win = has('win32') || has('win64')
+let s:is_mac = !s:is_win && (has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin')
+
 let $DOTVIM = expand('~/.vim')
 
 " NeoBundle:"{{{
@@ -29,12 +23,13 @@ NeoBundle 'git://github.com/tpope/vim-repeat.git'
 NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 NeoBundle 'git://github.com/Shougo/unite.vim.git'
 NeoBundle 'git://github.com/mattn/zencoding-vim.git'
+NeoBundle 'git://github.com/othree/html5.vim.git'
 "}}}
 
 filetype plugin indent on
 
 " Encoding:"{{{
-if !has('gui_running') && s:iswin
+if !has('gui_running') && s:is_win
     set termencoding=cp932
 else
     set termencoding=utf-8
@@ -63,7 +58,6 @@ command! Cejis ceIso2002jp
 set history=100
 set nowritebackup
 set nobackup
-set clipboard=unnamed,autoselect
 
 " Format:"{{{
 set tabstop=4 shiftwidth=4 softtabstop=0
@@ -125,6 +119,7 @@ nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
 
 " help
 nnoremap <C-h> :<C-u>help<Space>
+
 " help current keyword
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
@@ -142,9 +137,10 @@ inoremap <C-e> <End>
 inoremap <C-d> <Del>
 
 " Clipboard
-if s:ismac
+set clipboard=unnamed,autoselect
+if s:is_mac
     vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-    nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
+    nmap <Space><C-v> :call setreg("\"",system("pbpaste"))<CR>p
 endif
 
 " Commet out
