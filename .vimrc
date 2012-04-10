@@ -55,7 +55,6 @@ command! Cejis ceIso2002jp
 "}}}
 
 set history=100
-set nowritebackup
 set nobackup
 
 " Format:"{{{
@@ -63,7 +62,6 @@ set tabstop=4 shiftwidth=4 softtabstop=0
 set smarttab
 set expandtab
 set shiftround
-set modeline
 set autoindent
 set smartindent
 "}}}
@@ -73,7 +71,6 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
-set wrapscan
 "}}}
 
 " Interface:"{{{
@@ -98,7 +95,6 @@ set matchpairs+=<:>
 set hidden
 set list
 set listchars=tab:>-,trail:_,extends:>,precedes:<
-set wrap
 set whichwrap=b,s,h,l,<,>,~,[,]
 set laststatus=2
 set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%03.3b,HEX=%02.2B)\ %l/%L(%P)%m
@@ -109,7 +105,6 @@ set wildmode=list:full
 set wildignore+=*.DS_Store
 set visualbell
 set report=0
-set mouse=a
 "}}}
 
 " vimrc edit/reload
