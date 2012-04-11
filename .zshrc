@@ -2,7 +2,7 @@ autoload -U compinit
 compinit
 
 export LANG=ja_JP.UTF-8
-export PATH=/usr/local/bin:/usr/local/share:$PATH
+export PATH=/usr/local/bin:/usr/local/share:${PATH}
 export DISPLAY=:0.0
 
 bindkey -v
@@ -84,23 +84,19 @@ alias vr='vim -R'
 alias screen='screen -U -d -R'
 
 # ls
-case "${OSTYPE}" in
-    freebsd*|darwin*)
-        alias ls="ls -G"
-        ;;
-    linux*)
-        alias ls="ls --color=auto"
-        ;;
-esac
+[[ ${OSTYPE} == freebsd* || ${OSTYPE} == darwin* ]] && alias ls="ls -G"
+[[ ${OSTYPE} == linux* ]] && alias ls="ls --color=auto"
 
 alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -al'
 
 # cd
-alias briefcase='cd /Users/akihisa/Documents/Magic\ Briefcase/'
-alias web='cd /Users/akihisa/Documents/Work/Web/'
-alias xtrmjp='cd /Users/akihisa/Documents/Work/Web/xtrm_jp/'
+alias magic="cd ${HOME}/Documents/Magic\\ Briefcase/"
+alias web="cd ${HOME}/Documents/Work/Web/"
+
+# other
+[[ ${OSTYPE} == darwin* ]] && alias flushdns='dscacheutil -flushcache'
 
 #}}}
 
