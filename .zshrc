@@ -1,16 +1,17 @@
-autoload -U compinit
-compinit
-
 export LANG=ja_JP.UTF-8
+export DISPLAY="localhost:0.0"
 export PATH=/usr/local/bin:/usr/local/share:${PATH}
-export DISPLAY=:0.0
 
+export EDITOR=vim
+export PAGER=less
 bindkey -v
 
 limit coredumpsize 0
-setopt nobeep
+unsetopt beep
 
 # Completion:"{{{
+autoload -Uz compinit && compinit
+
 setopt auto_param_keys
 setopt correct
 setopt list_packed
@@ -24,14 +25,20 @@ setopt extended_glob
 setopt long_list_jobs
 setopt magic_equal_subst
 setopt print_eight_bit
-setopt prompt_subst
-unsetopt promptcr
+
+zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+autoload -U smart-insert-last-word
+zle -N insert-last-word smart-insert-last-word
+zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\][^[:space:]])*'
+bindkey "^]" insert-last-word
 #}}}
 
 # History:#{{{
+HISTFILE=${HOME}/.zhistory
 HISTSIZE=100000
 SAVEHIST=100000
-HISTFILE=${HOME}/.zhistory
 
 setopt hist_no_store
 setopt hist_ignore_all_dups
@@ -86,7 +93,6 @@ alias screen='screen -U -d -R'
 # ls
 [[ ${OSTYPE} == freebsd* || ${OSTYPE} == darwin* ]] && alias ls="ls -G"
 [[ ${OSTYPE} == linux* ]] && alias ls="ls --color=auto"
-
 alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -al'
@@ -95,7 +101,17 @@ alias lla='ls -al'
 alias magic="cd ${HOME}/Documents/Magic\\ Briefcase/"
 alias web="cd ${HOME}/Documents/Work/Web/"
 
-# other
+# find
+function findExec() { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
+function findInFilePattern() { find . -name "$2" | xargs grep -ni "$1"  ; }
+alias fe=findExec
+alias fifp=findInFilePattern
+
+# MySQL
+[[ ${OSTYPE} == darwin* ]] && alias mysqlstart='sudo launchctl load -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
+[[ ${OSTYPE} == darwin* ]] && alias mysqlstop='sudo launchctl unload -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
+
+# Other
 [[ ${OSTYPE} == darwin* ]] && alias flushdns='dscacheutil -flushcache'
 
 #}}}
@@ -104,17 +120,12 @@ alias web="cd ${HOME}/Documents/Work/Web/"
 autoload -U colors
 colors
 
+setopt prompt_subst
+unsetopt promptcr
+
 PROMPT="%{${fg[red]}%}[%n@%m] %{${reset_color}%}"
 PROMPT2="%{${fg[red]}%}[%n@%m] %{${reset_color}%}"
 RPROMPT="%{${fg[green]}%}%/ %{${reset_color}%}"
 SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-
-zstyle ':completion:*:default' menu select=1
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-autoload -U smart-insert-last-word
-zle -N insert-last-word smart-insert-last-word
-zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\][^[:space:]])*'
-bindkey "^]" insert-last-word
 #}}}
 
