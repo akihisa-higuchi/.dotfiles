@@ -1,6 +1,9 @@
 export LANG=ja_JP.UTF-8
 export DISPLAY="localhost:0.0"
+
 export PATH=/usr/local/bin:/usr/local/share:${PATH}
+export WEB="${HOME}/Documents/Work/Web"
+export MAGIC="${HOME}/Documents/Magic Briefcase"
 
 export EDITOR=vim
 export PAGER=less
@@ -97,10 +100,6 @@ alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -al'
 
-# cd
-alias magic="cd ${HOME}/Documents/Magic\\ Briefcase/"
-alias web="cd ${HOME}/Documents/Work/Web/"
-
 # find
 function findExec() { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
 function findInFilePattern() { find . -name "$2" | xargs grep -ni "$1"  ; }
@@ -108,8 +107,10 @@ alias fe=findExec
 alias fifp=findInFilePattern
 
 # MySQL
-[[ ${OSTYPE} == darwin* ]] && alias mysqlstart='sudo launchctl load -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
-[[ ${OSTYPE} == darwin* ]] && alias mysqlstop='sudo launchctl unload -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
+if [[ ${OSTYPE} == darwin* ]] ; then
+    alias mysqlstart='sudo launchctl load -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
+    alias mysqlstop='sudo launchctl unload -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
+fi
 
 # Other
 [[ ${OSTYPE} == darwin* ]] && alias flushdns='dscacheutil -flushcache'
