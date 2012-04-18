@@ -12,8 +12,19 @@ bindkey -v
 limit coredumpsize 0
 unsetopt beep
 
+# Prompt:#{{{
+autoload -U colors && colors
+
+setopt prompt_subst
+unsetopt promptcr
+
+PROMPT="%{${fg[red]}%}%n@%m %(!.#.$) %{${reset_color}%}"
+PROMPT2="%{${fg[red]}%}%_> % %{${reset_color}%}"
+RPROMPT="%{${fg[green]}%}%/ %{${reset_color}%}"
+#}}}
+
 # Completion:"{{{
-autoload -Uz compinit && compinit
+autoload -U compinit && compinit
 
 setopt auto_param_keys
 setopt correct
@@ -36,6 +47,8 @@ autoload -U smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\][^[:space:]])*'
 bindkey "^]" insert-last-word
+
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 #}}}
 
 # History:#{{{
@@ -106,27 +119,12 @@ function findInFilePattern() { find . -name "$2" | xargs grep -ni "$1"  ; }
 alias fe=findExec
 alias fifp=findInFilePattern
 
-# MySQL
+# Other
 if [[ ${OSTYPE} == darwin* ]] ; then
+    alias flushdns='dscacheutil -flushcache'
     alias mysqlstart='sudo launchctl load -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
     alias mysqlstop='sudo launchctl unload -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
 fi
 
-# Other
-[[ ${OSTYPE} == darwin* ]] && alias flushdns='dscacheutil -flushcache'
-
-#}}}
-
-# Prompt:#{{{
-autoload -U colors
-colors
-
-setopt prompt_subst
-unsetopt promptcr
-
-PROMPT="%{${fg[red]}%}[%n@%m] %{${reset_color}%}"
-PROMPT2="%{${fg[red]}%}[%n@%m] %{${reset_color}%}"
-RPROMPT="%{${fg[green]}%}%/ %{${reset_color}%}"
-SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 #}}}
 
