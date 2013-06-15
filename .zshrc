@@ -99,29 +99,10 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias du="du -h"
 alias df="df -h"
-alias where="command -v"
-
-alias v='vim'
-alias vr='vim -R'
-alias screen='screen -U -d -R'
 
 # ls
 [[ ${OSTYPE} == freebsd* || ${OSTYPE} == darwin* ]] && alias ls="ls -G"
 [[ ${OSTYPE} == linux* ]] && alias ls="ls --color=auto"
-alias la='ls -a'
-alias ll='ls -l'
-alias lla='ls -al'
-
-# find
-function findExec() { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
-function findInFilePattern() { find . -name "$2" | xargs grep -ni "$1"  ; }
-alias fe=findExec
-alias fifp=findInFilePattern
-
-# Other
-if [[ ${OSTYPE} == darwin* ]] ; then
-    alias flushdns='dscacheutil -flushcache'
-fi
 
 #}}}
 
