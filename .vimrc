@@ -22,6 +22,7 @@ NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 NeoBundle 'git://github.com/Shougo/unite.vim.git'
 NeoBundle 'git://github.com/mattn/zencoding-vim.git'
 NeoBundle 'git://github.com/othree/html5.vim.git'
+NeoBundle 'git://github.com/scrooloose/syntastic.git'
 "}}}
 
 scriptencoding utf-8
@@ -186,8 +187,15 @@ if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
 let g:neocomplcache_snippets_dir = $HOME . '/snippets'
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_auto_loc_list=1
+let g:syntastic_loc_list_height=5
+let g:syntastic_auto_jump=1
 
 "}}}
 
