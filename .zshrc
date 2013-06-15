@@ -2,8 +2,7 @@ export LANG=ja_JP.UTF-8
 export DISPLAY="localhost:0.0"
 
 export PATH=/usr/local/bin:/usr/local/share:${PATH}
-export WEB="${HOME}/Documents/Work/Web"
-export MAGIC="${HOME}/Documents/Magic Briefcase"
+export PROJECTS="${HOME}/Documents/Projects"
 
 export EDITOR=vim
 export PAGER=less
@@ -122,8 +121,6 @@ alias fifp=findInFilePattern
 # Other
 if [[ ${OSTYPE} == darwin* ]] ; then
     alias flushdns='dscacheutil -flushcache'
-    alias mysqlstart='sudo launchctl load -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
-    alias mysqlstop='sudo launchctl unload -w /Library/LaunchDaemons/com.mysql.mysqld.plist'
 fi
 
 #}}}
