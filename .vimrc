@@ -43,20 +43,6 @@ set encoding=utf-8
 set fileformat=unix
 set fileformats=unix,dos,mac
 set ambiwidth=double
-
-command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
-command! -bang -bar -complete=file -nargs=? Eucjp edit<bang> ++enc=euc-jp <args>
-command! -bang -bar -complete=file -nargs=? Cp932 edit<bang> ++enc=cp932 <args>
-command! -bang -bar -complete=file -nargs=? Iso2022jp edit<bang> ++enc=iso-2022-jp <args>
-command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
-command! -bang -bar -complete=file -nargs=? Jis  Iso2022jp<bang> <args>
-
-command! Ceutf8 setlocal fenc=utf-8
-command! Ceeucjp setlocal fenc=euc-jp
-command! Cecp932 setlocal fenc=cp932
-command! Ceiso2022jp setlocal fenc=iso-2022-jp
-command! Cesjis ceCp932
-command! Cejis ceIso2002jp
 "}}}
 
 set history=100
@@ -112,10 +98,6 @@ set visualbell
 set report=0
 "}}}
 
-" vimrc edit/reload
-nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC<CR>
-
 " help
 nnoremap <C-h> :<C-u>help<Space>
 
@@ -127,33 +109,12 @@ noremap k  gk
 noremap gj  j
 noremap gk  k
 
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-inoremap <C-d> <Del>
-
 " Clipboard
 set clipboard=unnamed,autoselect
 if s:is_mac
     vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
     nmap <Space><C-v> :call setreg("\"",system("pbpaste"))<CR>p
 endif
-
-" Commet out
-vnoremap co/ :s/^/\/\//<CR>:nohlsearch<CR>
-vnoremap co# :s/^/#/<CR>:nohlsearch<CR>
-vnoremap co" :s/^/\"/<CR>:nohlsearch<CR>
-vnoremap cod :s/^\/\/\\|^[#"]//<CR>:nohlsearch<CR>
-vnoremap co* v`<I<CR><esc>k0i/*<ESC>`>j0i*/<CR><esc><ESC>
-vnoremap co< v`<I<CR><esc>k0i<!--<ESC>`>j0i--><CR><esc><ESC>
-
-" Complement Date and Time
-inoremap <expr> ,df  strftime('%Y-%m-%dT%H:%M:%S')
-inoremap <expr> ,dd  strftime('%Y-%m-%d')
-inoremap <expr> ,dt  strftime('%H:%M:%S')
 
 " Registers and Marks
 nnoremap <Space>m :<C-u>marks
