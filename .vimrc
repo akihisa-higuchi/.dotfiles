@@ -5,20 +5,25 @@ set nocompatible
 let s:is_win = has('win32') || has('win64')
 let s:is_mac = !s:is_win && (has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin')
 
-let $DOTVIM = expand('~/.vim')
-
 " NeoBundle:"{{{
 if has('vim_starting')
-    execute 'set runtimepath+=' . $DOTVIM . '/neobundle.vim.git'
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-filetype off
+call neobundle#rc()
 
-call neobundle#rc($DOTVIM . '/.bundle')
+NeoBundleLazy 'Shougo/neocomplcache', { 'autoload' : {
+            \ 'insert' : 1
+            \ }}
 
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/unite.vim'
+NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : {
+            \ 'insert' : 1
+            \ }}
+
+NeoBundleLazy 'Shougo/unite.vim', { 'autolaod' : {
+            \ 'commands' : 'Unite'
+            \ }}
+
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
@@ -181,42 +186,40 @@ cnoreabbrev <expr> cd
 
 " Plugin:"{{{
 
-"" neocomplcache
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
+" neocomplcache
+let bundle = neobundle#get('neocomplcache')
+function! bundle.hooks.on_source(bundle)
+    let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_enable_smart_case = 1
 
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-let g:neocomplcache_snippets_dir = $HOME . '/snippets'
+    if !exists('g:neocomplcache_keyword_patterns')
+        let g:neocomplcache_keyword_patterns = {}
+    endif
+    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+endfunction
 
-"" neosnippet
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+" neosnippet
+let bundle = neobundle#get('neosnippet')
+function! bundle.hooks.on_source(bundle)
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)"
+                \: pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)"
+                \: "\<TAB>"
 
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+    if has('conceal')
+        set conceallevel=2 concealcursor=i
+    endif
 
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 concealcursor=i
-endif
+    let g:neosnippet#enable_snipmate_compatibility = 1
+    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+endfunction
 
-"Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
-"" syntastic
+" syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -224,5 +227,5 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 let g:syntastic_auto_jump=1
 
-"}}}
+""}}}
 
