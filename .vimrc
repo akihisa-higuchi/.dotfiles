@@ -104,10 +104,12 @@ nnoremap <C-h> :<C-u>help<Space>
 " help current keyword
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
-noremap j  gj
-noremap k  gk
-noremap gj  j
-noremap gk  k
+nnoremap j gj
+onoremap j gj
+xnoremap j gj
+nnoremap k gk
+onoremap k gk
+xnoremap k gk
 
 " Clipboard
 set clipboard=unnamed,autoselect
