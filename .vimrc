@@ -20,10 +20,7 @@ NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : {
             \ 'insert' : 1
             \ }}
 
-NeoBundleLazy 'Shougo/unite.vim', { 'autolaod' : {
-            \ 'commands' : 'Unite'
-            \ }}
-
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
