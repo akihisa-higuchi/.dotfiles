@@ -1,9 +1,11 @@
-autocmd!
-
 set nocompatible
 
 let s:is_win = has('win32') || has('win64')
 let s:is_mac = !s:is_win && (has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin')
+
+augroup MyAutoCmd
+    autocmd!
+augroup END
 
 " NeoBundle:"{{{
 if has('vim_starting')
@@ -20,17 +22,24 @@ NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : {
             \ 'insert' : 1
             \ }}
 
-NeoBundle 'Shougo/unite.vim'
+NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
+            \   'commands' : [{ 'name' : 'Unite',
+            \                   'complete' : 'customlist,unite#complete_source'},
+            \                 'UniteWithCursorWord', 'UniteWithInput']
+            \ }}
+
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
-NeoBundle 'mattn/zencoding-vim'
-NeoBundle 'othree/html5.vim'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'mattn/zencoding-vim'
 "}}}
 
 scriptencoding utf-8
 filetype plugin indent on
+
+NeoBundleCheck
 
 " Encoding:"{{{
 if !has('gui_running') && s:is_win
@@ -65,6 +74,7 @@ set incsearch
 "}}}
 
 " Interface:"{{{
+
 augroup highlightIdegraphicSpace
     autocmd!
     autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
@@ -79,6 +89,7 @@ endif
 
 set number
 set ruler
+set cursorline
 set backspace=eol,indent,start
 set showmatch
 set matchtime=3
@@ -98,18 +109,16 @@ set visualbell
 set report=0
 "}}}
 
-" help
-nnoremap <C-h> :<C-u>help<Space>
-
-" help current keyword
-nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
-
 nnoremap j gj
 onoremap j gj
 xnoremap j gj
 nnoremap k gk
 onoremap k gk
 xnoremap k gk
+
+" Help
+nnoremap <C-h> :<C-u>help<Space>
+nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 " Clipboard
 set clipboard=unnamed,autoselect
@@ -122,31 +131,13 @@ endif
 nnoremap <Space>m :<C-u>marks
 nnoremap <Space>r ;<C-u>registers
 
-" Select the latest change text
-nnoremap gc  `[v`]
-vnoremap gc  :<C-u>normal gc<CR>
-onoremap gc  :<C-u>normal gc<CR>
-
 " Override syntax highlight
 autocmd ColorScheme * highlight TabLine cterm=NONE ctermfg=lightgray ctermbg=darkgray
 doautocmd ColorScheme _
 
-" Set cursorline only current window
-autocmd WinEnter *  setlocal cursorline
-autocmd WinLeave *  setlocal nocursorline
-
-"" Completion :cd
-command! -complete=customlist,CompleteCD -nargs=? CD  cd <args>
-function! CompleteCD(arglead, cmdline, cursorpos)
-  let pattern = join(split(a:cmdline, '\s', !0)[1:], ' ') . '*/'
-  return split(globpath(&cdpath, pattern), "\n")
-endfunction
-cnoreabbrev <expr> cd
-\ (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'CD' : 'cd'
-
 " Plugin:"{{{
 
-" neocomplcache
+" neocomplcache"{{{
 let bundle = neobundle#get('neocomplcache')
 function! bundle.hooks.on_source(bundle)
     let g:neocomplcache_enable_at_startup = 1
@@ -157,8 +148,9 @@ function! bundle.hooks.on_source(bundle)
     endif
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 endfunction
+"}}}
 
-" neosnippet
+" neosnippet"{{{
 let bundle = neobundle#get('neosnippet')
 function! bundle.hooks.on_source(bundle)
     imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -178,14 +170,21 @@ function! bundle.hooks.on_source(bundle)
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 endfunction
+"}}}
 
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" syntastic"{{{
 let g:syntastic_auto_loc_list=1
-let g:syntastic_loc_list_height=5
 let g:syntastic_auto_jump=1
+let g:syntastic_mode_map = { 'mode': 'active',
+            \ 'active_filetypes': ['php'],
+            \ 'passive_filetypes': ['html'] }
+"}}}
 
-""}}}
+" zencoding"{{{
+let g:user_zen_settings = {
+            \  'lang' : 'ja',
+            \}
+"}}}
+
+"}}}
 
