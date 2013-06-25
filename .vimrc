@@ -3,16 +3,24 @@ set nocompatible
 let s:is_win = has('win32') || has('win64')
 let s:is_mac = !s:is_win && (has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin')
 
-augroup MyAutoCmd
-    autocmd!
-augroup END
-
 " NeoBundle:"{{{
+"
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#rc()
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/vimproc', {
+            \ 'build' : {
+            \     'windows' : 'make -f make_mingw32.mak',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
 
 NeoBundleLazy 'Shougo/neocomplcache', { 'autoload' : {
             \ 'insert' : 1
@@ -36,12 +44,14 @@ NeoBundle 'othree/html5.vim'
 NeoBundle 'mattn/zencoding-vim'
 "}}}
 
-scriptencoding utf-8
 filetype plugin indent on
+
+syntax enable
 
 NeoBundleCheck
 
 " Encoding:"{{{
+"
 if !has('gui_running') && s:is_win
     set termencoding=cp932
 else
@@ -58,6 +68,7 @@ set history=100
 set nobackup
 
 " Format:"{{{
+"
 set tabstop=4 shiftwidth=4 softtabstop=0
 set smarttab
 set expandtab
@@ -67,6 +78,7 @@ set smartindent
 "}}}
 
 " Search:"{{{
+"
 set ignorecase
 set smartcase
 set hlsearch
@@ -74,19 +86,8 @@ set incsearch
 "}}}
 
 " Interface:"{{{
-
-augroup highlightIdegraphicSpace
-    autocmd!
-    autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
-    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-augroup END
-
+"
 set background=dark
-if has('syntax')
-    syntax enable
-    colorscheme desert
-endif
-
 set number
 set ruler
 set cursorline
@@ -107,6 +108,14 @@ set wildmode=list:full
 set wildignore+=*.DS_Store
 set visualbell
 set report=0
+
+augroup highlightIdegraphicSpace
+    autocmd!
+    autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+    autocmd VimEnter,WinEnter * call matchadd("IdeographicSpace", '\%u3000')
+augroup END
+
+colorscheme desert
 "}}}
 
 nnoremap j gj
@@ -127,17 +136,11 @@ if s:is_mac
     nmap <Space><C-v> :call setreg("\"",system("pbpaste"))<CR>p
 endif
 
-" Registers and Marks
-nnoremap <Space>m :<C-u>marks
-nnoremap <Space>r ;<C-u>registers
-
-" Override syntax highlight
-autocmd ColorScheme * highlight TabLine cterm=NONE ctermfg=lightgray ctermbg=darkgray
-doautocmd ColorScheme _
-
 " Plugin:"{{{
+"
 
 " neocomplcache"{{{
+"
 let bundle = neobundle#get('neocomplcache')
 function! bundle.hooks.on_source(bundle)
     let g:neocomplcache_enable_at_startup = 1
@@ -151,6 +154,7 @@ endfunction
 "}}}
 
 " neosnippet"{{{
+"
 let bundle = neobundle#get('neosnippet')
 function! bundle.hooks.on_source(bundle)
     imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -173,6 +177,7 @@ endfunction
 "}}}
 
 " syntastic"{{{
+"
 let g:syntastic_auto_loc_list=1
 let g:syntastic_auto_jump=1
 let g:syntastic_mode_map = { 'mode': 'active',
@@ -181,6 +186,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
 "}}}
 
 " zencoding"{{{
+"
 let g:user_zen_settings = {
             \  'lang' : 'ja',
             \}
