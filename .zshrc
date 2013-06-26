@@ -48,6 +48,6 @@ source $ZSH/oh-my-zsh.sh
 #
 export LANG=ja_JP.UTF-8
 export PATH=/usr/local/bin:/usr/local/share:${PATH}
-export EDITOR=vim
-bindkey -v
+#export EDITOR=vim
+#bindkey -v
 
