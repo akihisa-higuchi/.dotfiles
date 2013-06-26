@@ -1,108 +1,53 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="robbyrussell"
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable bi-weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how often before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want to disable command autocorrection
+# DISABLE_CORRECTION="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment following line if you want to disable marking untracked files under
+# VCS as dirty. This makes repository status check for large repositories much,
+# much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(autojump git git-flow git-hub history osx)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+#
 export LANG=ja_JP.UTF-8
-export DISPLAY="localhost:0.0"
-
 export PATH=/usr/local/bin:/usr/local/share:${PATH}
-export PROJECTS="${HOME}/Documents/Projects"
-
 export EDITOR=vim
-export PAGER=less
 bindkey -v
-
-limit coredumpsize 0
-unsetopt beep
-
-# Prompt:#{{{
-autoload -U colors && colors
-
-setopt prompt_subst
-unsetopt promptcr
-
-PROMPT="%{${fg[red]}%}%n@%m %(!.#.$) %{${reset_color}%}"
-PROMPT2="%{${fg[red]}%}%_> % %{${reset_color}%}"
-RPROMPT="%{${fg[green]}%}%/ %{${reset_color}%}"
-#}}}
-
-# Completion:"{{{
-autoload -U compinit && compinit
-
-setopt auto_param_keys
-setopt correct
-setopt list_packed
-setopt list_types
-setopt numeric_glob_sort
-setopt auto_cd
-setopt auto_pushd
-setopt auto_resume
-setopt equals
-setopt extended_glob
-setopt long_list_jobs
-setopt magic_equal_subst
-setopt print_eight_bit
-
-zstyle ':completion:*:default' menu select=1
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-autoload -U smart-insert-last-word
-zle -N insert-last-word smart-insert-last-word
-zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\][^[:space:]])*'
-bindkey "^]" insert-last-word
-
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
-#}}}
-
-# History:#{{{
-HISTFILE=${HOME}/.zhistory
-HISTSIZE=100000
-SAVEHIST=100000
-
-setopt hist_no_store
-setopt hist_ignore_all_dups
-setopt hist_reduce_blanks
-setopt hist_ignore_space
-setopt hist_verify
-setopt extended_history
-setopt inc_append_history
-setopt share_history
-
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
-
-zshaddhistory() {
-    local line=${1%%$'\n'}
-    local cmd=${line%% *}
-
-    # ignore those command
-    [[ ${#line} -ge 5
-        && ${cmd} != (l[salf])
-        && ${cmd} != (man)
-    ]]
-}
-#}}}
-
-# Alias:#{{{
-setopt complete_aliases
-
-alias -g M='|more'
-alias -g H='|head'
-alias -g T='|tail'
-alias -g G='|grep'
-alias -g GI='|grep -i'
-alias -g L='|less'
-
-alias -s {conf,sh,c,h,cpp,html,php}=vim
-
-alias mv='nocorrect mv'
-alias cp='nocorrect cp'
-alias mkdir='nocorrect mkdir'
-alias du="du -h"
-alias df="df -h"
-
-# ls
-[[ ${OSTYPE} == freebsd* || ${OSTYPE} == darwin* ]] && alias ls="ls -G"
-[[ ${OSTYPE} == linux* ]] && alias ls="ls --color=auto"
-
-#}}}
 
