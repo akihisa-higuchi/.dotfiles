@@ -69,7 +69,6 @@ set nobackup
 
 " Format:"{{{
 "
-set tabstop=4 shiftwidth=4 softtabstop=0
 set smarttab
 set expandtab
 set shiftround
@@ -89,7 +88,6 @@ set incsearch
 "
 set background=dark
 set number
-set ruler
 set cursorline
 set backspace=eol,indent,start
 set showmatch
@@ -97,16 +95,12 @@ set matchtime=3
 set matchpairs+=<:>
 set hidden
 set list
-set listchars=tab:>-,trail:_,extends:>,precedes:<
-set whichwrap=b,s,h,l,<,>,~,[,]
+set listchars=tab:>-,trail:-,extends:>,precedes:<
 set laststatus=2
 set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%03.3b,HEX=%02.2B)\ %l/%L(%P)%m
-set showcmd
 set title
 let &titlestring = hostname() . expand("%:p")
 set wildmode=list:full
-set wildignore+=*.DS_Store
-set visualbell
 set report=0
 
 augroup highlightIdegraphicSpace
@@ -179,7 +173,6 @@ endfunction
 " syntastic"{{{
 "
 let g:syntastic_auto_loc_list=1
-let g:syntastic_auto_jump=1
 let g:syntastic_mode_map = { 'mode': 'active',
             \ 'active_filetypes': ['php'],
             \ 'passive_filetypes': ['html'] }
