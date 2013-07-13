@@ -69,9 +69,6 @@ set nobackup
 
 " Format:"{{{
 "
-set smarttab
-set expandtab
-set shiftround
 set autoindent
 set smartindent
 "}}}
@@ -80,15 +77,12 @@ set smartindent
 "
 set ignorecase
 set smartcase
-set hlsearch
 set incsearch
 "}}}
 
 " Interface:"{{{
 "
-set background=dark
 set number
-set cursorline
 set backspace=eol,indent,start
 set showmatch
 set matchtime=3
@@ -97,7 +91,7 @@ set hidden
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<
 set laststatus=2
-set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%03.3b,HEX=%02.2B)\ %l/%L(%P)%m
+set statusline=%<%n:\ %F\ %m%r%w%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}%=%L(%P)
 set title
 let &titlestring = hostname() . expand("%:p")
 set wildmode=list:full
@@ -118,10 +112,6 @@ xnoremap j gj
 nnoremap k gk
 onoremap k gk
 xnoremap k gk
-
-" Help
-nnoremap <C-h> :<C-u>help<Space>
-nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 " Clipboard
 set clipboard=unnamed,autoselect
