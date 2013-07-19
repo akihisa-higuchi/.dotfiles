@@ -64,9 +64,6 @@ set fileformats=unix,dos,mac
 set ambiwidth=double
 "}}}
 
-set history=100
-set nobackup
-
 " Format:"{{{
 "
 set autoindent
@@ -77,6 +74,7 @@ set smartindent
 "
 set ignorecase
 set smartcase
+set hlsearch
 set incsearch
 "}}}
 
@@ -85,11 +83,10 @@ set incsearch
 set number
 set backspace=eol,indent,start
 set showmatch
-set matchtime=3
 set matchpairs+=<:>
 set hidden
 set list
-set listchars=tab:>-,trail:-,extends:>,precedes:<
+set listchars=tab:>\ \,trail:-,extends:>,precedes:<
 set laststatus=2
 set statusline=%<%n:\ %F\ %m%r%w%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}%=%L(%P)
 set title
@@ -105,13 +102,6 @@ augroup END
 
 colorscheme desert
 "}}}
-
-nnoremap j gj
-onoremap j gj
-xnoremap j gj
-nnoremap k gk
-onoremap k gk
-xnoremap k gk
 
 " Clipboard
 set clipboard=unnamed,autoselect
