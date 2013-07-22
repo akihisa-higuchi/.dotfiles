@@ -1,7 +1,7 @@
 set nocompatible
 
 let s:is_win = has('win32') || has('win64')
-let s:is_mac = !s:is_win && (has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin')
+let s:is_mac = system('uname') =~? '^darwin'
 
 " NeoBundle:"{{{
 "
@@ -52,13 +52,8 @@ NeoBundleCheck
 
 " Encoding:"{{{
 "
-if !has('gui_running') && s:is_win
-    set termencoding=cp932
-else
-    set termencoding=utf-8
-endif
-
 set encoding=utf-8
+set termencoding=utf-8
 set fileformat=unix
 set fileformats=unix,dos,mac
 set ambiwidth=double
@@ -103,12 +98,13 @@ augroup END
 colorscheme desert
 "}}}
 
-" Clipboard
+" Clipboard:"{{{
+"
 set clipboard=unnamed,autoselect
 if s:is_mac
     vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-    nmap <Space><C-v> :call setreg("\"",system("pbpaste"))<CR>p
 endif
+"}}}
 
 " Plugin:"{{{
 "
