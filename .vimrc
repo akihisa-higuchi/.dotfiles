@@ -41,7 +41,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'othree/html5.vim'
-NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/emmet-vim'
 "}}}
 
 filetype plugin indent on
@@ -154,11 +154,15 @@ let g:syntastic_mode_map = { 'mode': 'active',
             \ 'passive_filetypes': ['html'] }
 "}}}
 
+" emmet"{{{
+let g:user_emmet_mode='a'
+"}}}
+
 " zencoding"{{{
 "
-let g:user_zen_settings = {
-            \  'lang' : 'ja',
-            \}
+"let g:user_zen_settings = {
+"            \  'lang' : 'ja',
+"            \}
 "}}}
 
 "}}}
