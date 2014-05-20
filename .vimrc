@@ -9,7 +9,7 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc()
+call neobundle#begin()
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -22,20 +22,15 @@ NeoBundle 'Shougo/vimproc', {
             \    },
             \ }
 
-NeoBundleLazy 'Shougo/neocomplcache', { 'autoload' : {
-            \ 'insert' : 1
-            \ }}
-
-NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : {
-            \ 'insert' : 1
-            \ }}
-
 NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
             \   'commands' : [{ 'name' : 'Unite',
             \                   'complete' : 'customlist,unite#complete_source'},
             \                 'UniteWithCursorWord', 'UniteWithInput']
             \ }}
 
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
@@ -43,6 +38,8 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'mattn/emmet-vim'
 "}}}
+
+call neobundle#end()
 
 filetype plugin indent on
 
