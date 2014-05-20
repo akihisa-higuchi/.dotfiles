@@ -37,9 +37,9 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'othree/html5.vim'
 
-"}}}
-
 call neobundle#end()
+
+"}}}
 
 filetype plugin indent on
 
