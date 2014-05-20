@@ -31,12 +31,11 @@ NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'honza/vim-snippets'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'othree/html5.vim'
-NeoBundle 'mattn/emmet-vim'
 "}}}
 
 call neobundle#end()
@@ -137,9 +136,6 @@ function! bundle.hooks.on_source(bundle)
     if has('conceal')
         set conceallevel=2 concealcursor=i
     endif
-
-    let g:neosnippet#enable_snipmate_compatibility = 1
-    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 endfunction
 "}}}
 
