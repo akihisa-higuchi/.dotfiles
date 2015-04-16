@@ -40,11 +40,12 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump brew git git-flow history osx vagrant)
+plugins=(autojump brew docker git git-flow history osx vagrant)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 #
 export LANG=ja_JP.UTF-8
+eval $(boot2docker shellinit 2>/dev/null)
 
