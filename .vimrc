@@ -11,6 +11,8 @@ endif
 
 call neobundle#begin()
 
+call neobundle#load_cache()
+
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/vimproc', {
@@ -36,6 +38,8 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'othree/html5.vim'
+
+NeoBundleSaveCache
 
 call neobundle#end()
 
