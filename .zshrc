@@ -47,5 +47,4 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 #
 export LANG=ja_JP.UTF-8
-eval $(boot2docker shellinit 2>/dev/null)
-
+eval $(docker-machine env default)
