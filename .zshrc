@@ -47,4 +47,3 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 #
 export LANG=ja_JP.UTF-8
-eval $(docker-machine env default)

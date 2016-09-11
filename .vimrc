@@ -3,53 +3,26 @@ set nocompatible
 let s:is_win = has('win32') || has('win64')
 let s:is_mac = system('uname') =~? '^darwin'
 
-" NeoBundle {{{
-
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-call neobundle#begin()
-
-call neobundle#load_cache()
-
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle 'Shougo/vimproc', {
-	\ 'build' : {
-	\ 	'windows' : 'make -f make_mingw32.mak',
-	\ 	'cygwin' : 'make -f make_cygwin.mak',
-	\ 	'mac' : 'make -f make_mac.mak',
-	\ 	'unix' : 'make -f make_unix.mak',
-	\ 	},
-	\ }
-
-NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
-	\ 'commands' : [{ 'name' : 'Unite',
-	\ 	'complete' : 'customlist,unite#complete_source'},
-	\ 	'UniteWithCursorWord', 'UniteWithInput']
-	\ }}
-
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'othree/html5.vim'
-
-NeoBundleSaveCache
-
-call neobundle#end()
-
-"}}}
-
 filetype plugin indent on
+
+" vim-plug {{{
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/vim-easy-align'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'mattn/emmet-vim'
+Plug 'scrooloose/syntastic'
+Plug 'othree/html5.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'jelera/vim-javascript-syntax'
+
+call plug#end()
+"}}}
 
 syntax enable
 
-NeoBundleCheck
 
 " Encoding {{{
 set encoding=utf-8
@@ -104,30 +77,8 @@ endif
 
 " Plugin {{{
 
-" neocomplcache {{{
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-
-if !exists('g:neocomplcache_keyword_patterns')
-	let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-"}}}
-
-" neosnippet {{{
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-	\ "\<Plug>(neosnippet_expand_or_jump)"
-	\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-	\ "\<Plug>(neosnippet_expand_or_jump)"
-	\: "\<TAB>"
-
-if has('conceal')
-	set conceallevel=2 concealcursor=i
-endif
+" NERDTree {{{
+map <C-n> :NERDTreeToggle<CR>
 "}}}
 
 " syntastic {{{
