@@ -8,21 +8,23 @@ filetype plugin indent on
 " vim-plug {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/vim-easy-align'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-surround'
+
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+
 Plug 'mattn/emmet-vim'
-Plug 'scrooloose/syntastic'
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'jelera/vim-javascript-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'honza/dockerfile.vim'
+Plug 'scrooloose/syntastic'
 
 call plug#end()
 "}}}
 
 syntax enable
-
 
 " Encoding {{{
 set encoding=utf-8
@@ -86,6 +88,11 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_mode_map = { 'mode': 'active',
 	\ 'active_filetypes': ['php'],
 	\ 'passive_filetypes': ['html'] }
+"}}}
+
+" EasyAlign {{{
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 "}}}
 
 "}}}
