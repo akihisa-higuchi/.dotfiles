@@ -1,11 +1,6 @@
-set nocompatible
+let s:darwin = system('uname') =~? '^darwin'
 
-let s:is_win = has('win32') || has('win64')
-let s:is_mac = system('uname') =~? '^darwin'
-
-filetype plugin indent on
-
-" vim-plug {{{
+" Plugins {{{
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -24,15 +19,7 @@ Plug 'scrooloose/syntastic'
 call plug#end()
 "}}}
 
-syntax enable
-
-" Encoding {{{
 set encoding=utf-8
-set termencoding=utf-8
-set fileformat=unix
-set fileformats=unix,dos,mac
-set ambiwidth=double
-"}}}
 
 " Format {{{
 set autoindent
@@ -48,6 +35,7 @@ set incsearch
 
 " Interface {{{
 set number
+set lazyredraw
 set backspace=eol,indent,start
 set showmatch
 set matchpairs+=<:>
@@ -60,6 +48,7 @@ set title
 let &titlestring = hostname() . expand("%:p")
 set wildmode=list:full
 set report=0
+set ambiwidth=double
 
 augroup highlightIdegraphicSpace
 	autocmd!
@@ -72,12 +61,11 @@ colorscheme desert
 
 " Clipboard {{{
 set clipboard=unnamed,autoselect
-if s:is_mac
+if s:darwin
 	vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
 endif
 "}}}
 
-" Plugin {{{
 
 " NERDTree {{{
 map <C-n> :NERDTreeToggle<CR>
@@ -93,7 +81,5 @@ let g:syntastic_mode_map = { 'mode': 'active',
 " EasyAlign {{{
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-"}}}
-
 "}}}
 
