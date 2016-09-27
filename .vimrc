@@ -35,22 +35,19 @@ set incsearch
 
 " Interface {{{
 set number
-set lazyredraw
-set backspace=eol,indent,start
-set showmatch
-set matchpairs+=<:>
 set hidden
+set lazyredraw
+set backspace=indent,eol,start
+set wildmode=list:full
 set list
-set listchars=tab:>\ \,trail:-,extends:>,precedes:<
+set listchars=tab:>\ \,trail:-
 set laststatus=2
 set statusline=%<%n:\ %F\ %m%r%w%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}%=%L(%P)
 set title
 let &titlestring = hostname() . expand("%:p")
-set wildmode=list:full
-set report=0
 set ambiwidth=double
 
-augroup highlightIdegraphicSpace
+augroup highlightIdeographicSpace
 	autocmd!
 	autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
 	autocmd VimEnter,WinEnter * call matchadd("IdeographicSpace", '\%u3000')
@@ -65,7 +62,6 @@ if s:darwin
 	vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
 endif
 "}}}
-
 
 " NERDTree {{{
 map <C-n> :NERDTreeToggle<CR>
