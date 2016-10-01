@@ -16,6 +16,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'honza/dockerfile.vim'
 Plug 'scrooloose/syntastic'
 
+Plug 'akihisa-higuchi/highlight-ideographic-space'
+
 call plug#end()
 "}}}
 
@@ -46,12 +48,6 @@ set statusline=%<%n:\ %F\ %m%r%w%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}%=%L(
 set title
 let &titlestring = hostname() . expand("%:p")
 set ambiwidth=double
-
-augroup highlightIdeographicSpace
-	autocmd!
-	autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
-	autocmd VimEnter,WinEnter * call matchadd("IdeographicSpace", '\%u3000')
-augroup END
 
 colorscheme desert
 "}}}
