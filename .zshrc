@@ -1,13 +1,11 @@
-source ~/antigen/antigen.zsh
+source $HOME/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle autojump
-antigen bundle brew
-antigen bundle git
-antigen bundle github
+antigen bundle command-not-found
 antigen bundle history
 
 # Syntax highlighting bundle.
