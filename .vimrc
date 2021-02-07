@@ -16,8 +16,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'honza/dockerfile.vim'
 Plug 'scrooloose/syntastic'
 
-Plug 'akihisa-higuchi/highlight-ideographic-space'
-
 call plug#end()
 "}}}
 
