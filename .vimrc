@@ -3,18 +3,19 @@ let s:darwin = system('uname') =~? '^darwin'
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
 
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 
 Plug 'mattn/emmet-vim'
+
+Plug 'scrooloose/syntastic'
+Plug 'honza/dockerfile.vim'
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
-Plug 'honza/dockerfile.vim'
-Plug 'scrooloose/syntastic'
 
 call plug#end()
 "}}}
