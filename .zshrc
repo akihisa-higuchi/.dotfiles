@@ -9,6 +9,8 @@ antigen bundle command-not-found
 antigen bundle history
 
 # Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme.
