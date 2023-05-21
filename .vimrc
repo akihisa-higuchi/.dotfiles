@@ -4,18 +4,12 @@ let s:darwin = system('uname') =~? '^darwin'
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'mattn/emmet-vim'
+Plug 'dense-analysis/ale'
 
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-
-Plug 'mattn/emmet-vim'
-
-Plug 'scrooloose/syntastic'
-Plug 'honza/dockerfile.vim'
-Plug 'othree/html5.vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'pangloss/vim-javascript'
 
 call plug#end()
 "}}}
@@ -60,13 +54,6 @@ endif
 
 " NERDTree {{{
 map <C-n> :NERDTreeToggle<CR>
-"}}}
-
-" syntastic {{{
-let g:syntastic_auto_loc_list=1
-let g:syntastic_mode_map = { 'mode': 'active',
-	\ 'active_filetypes': ['php'],
-	\ 'passive_filetypes': ['html'] }
 "}}}
 
 " EasyAlign {{{
